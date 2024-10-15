@@ -37,15 +37,15 @@ public class GameManager : MonoBehaviour
 
     public void NewGame()
     {
-        // reset score
+
         SetScore(0);
         hiscoreText.text = LoadHiscore().ToString();
 
-        // hide game over screen
+
         gameOver.alpha = 0f;
         gameOver.interactable = false;
 
-        // update board state
+
         board.ClearBoard();
         board.CreateTile();
         board.CreateTile();
