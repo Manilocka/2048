@@ -1,9 +1,9 @@
 using UnityEngine;
 
-public class TileGrid : MonoBehaviour
+public class Grid : MonoBehaviour
 {
-    public TileRow[] rows { get; private set; }
-    public TileCell[] cells { get; private set; }
+    public Row[] rows { get; private set; }
+    public Cell[] cells { get; private set; }
 
     public int Size => cells.Length;
     public int Height => rows.Length;
@@ -11,20 +11,20 @@ public class TileGrid : MonoBehaviour
 
     private void Awake()
     {
-        rows = GetComponentsInChildren<TileRow>();
-        cells = GetComponentsInChildren<TileCell>();
+        rows = GetComponentsInChildren<Row>();
+        cells = GetComponentsInChildren<Cell>();
 
         for (int i = 0; i < cells.Length; i++) {
             cells[i].coordinates = new Vector2Int(i % Width, i / Width);
         }
     }
 
-    public TileCell GetCell(Vector2Int coordinates)
+    public Cell GetCell(Vector2Int coordinates)
     {
         return GetCell(coordinates.x, coordinates.y);
     }
 
-    public TileCell GetCell(int x, int y)
+    public Cell GetCell(int x, int y)
     {
         if (x >= 0 && x < Width && y >= 0 && y < Height) {
             return rows[y].cells[x];
@@ -33,7 +33,7 @@ public class TileGrid : MonoBehaviour
         }
     }
 
-    public TileCell GetAdjacentCell(TileCell cell, Vector2Int direction)
+    public Cell GetAdjacentCell(Cell cell, Vector2Int direction)
     {
         Vector2Int coordinates = cell.coordinates;
         coordinates.x += direction.x;
@@ -42,7 +42,7 @@ public class TileGrid : MonoBehaviour
         return GetCell(coordinates);
     }
 
-    public TileCell GetRandomEmptyCell()
+    public Cell GetRandomEmptyCell()
     {
         int index = Random.Range(0, cells.Length);
         int startingIndex = index;

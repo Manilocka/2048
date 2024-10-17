@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class TileCell : MonoBehaviour
+public class Cell : MonoBehaviour
 {
     public Vector2Int coordinates { get; set; }
     public Tile tile { get; set; }

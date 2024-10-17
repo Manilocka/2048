@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Tile : MonoBehaviour
 {
     public TileState state { get; private set; }
-    public TileCell cell { get; private set; }
+    public Cell cell { get; private set; }
     public bool locked { get; set; }
 
 
@@ -28,7 +28,7 @@ public class Tile : MonoBehaviour
         text.text = state.number.ToString();
     }
 
-    public void Spawn(TileCell cell)
+    public void Spawn(Cell cell)
     {
         if (this.cell != null) {
             this.cell.tile = null;
@@ -40,7 +40,7 @@ public class Tile : MonoBehaviour
         transform.position = cell.transform.position;
     }
 
-    public void MoveTo(TileCell cell)
+    public void MoveTo(Cell cell)
     {
         if (this.cell != null) {
             this.cell.tile = null;
@@ -52,7 +52,7 @@ public class Tile : MonoBehaviour
         StartCoroutine(Animate(cell.transform.position, false));
     }
 
-    public void Merge(TileCell cell)
+    public void Merge(Cell cell)
     {
         if (this.cell != null) {
             this.cell.tile = null;

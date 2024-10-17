@@ -2,18 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TileBoard : MonoBehaviour
+public class Board : MonoBehaviour
 {
     [SerializeField] private Tile tilePrefab;
     [SerializeField] private TileState[] tileStates;
 
-    private TileGrid grid;
+    private Grid grid;
     private List<Tile> tiles;
     private bool waiting;
 
     private void Awake()
     {
-        grid = GetComponentInChildren<TileGrid>();
+        grid = GetComponentInChildren<Grid>();
         tiles = new List<Tile>(16);
     }
 
@@ -70,7 +70,7 @@ public class TileBoard : MonoBehaviour
         {
             for (int y = startY; y >= 0 && y < grid.Height; y += incrementY)
             {
-                TileCell cell = grid.GetCell(x, y);
+                Cell cell = grid.GetCell(x, y);
 
                 if (cell.Occupied) {
                     changed |= MoveTile(cell.tile, direction);
@@ -85,8 +85,8 @@ public class TileBoard : MonoBehaviour
 
     private bool MoveTile(Tile tile, Vector2Int direction)
     {
-        TileCell newCell = null;
-        TileCell adjacent = grid.GetAdjacentCell(tile.cell, direction);
+        Cell newCell = null;
+        Cell adjacent = grid.GetAdjacentCell(tile.cell, direction);
 
         while (adjacent != null)
         {
@@ -172,10 +172,10 @@ public class TileBoard : MonoBehaviour
 
         foreach (var tile in tiles)
         {
-            TileCell up = grid.GetAdjacentCell(tile.cell, Vector2Int.up);
-            TileCell down = grid.GetAdjacentCell(tile.cell, Vector2Int.down);
-            TileCell left = grid.GetAdjacentCell(tile.cell, Vector2Int.left);
-            TileCell right = grid.GetAdjacentCell(tile.cell, Vector2Int.right);
+            Cell up = grid.GetAdjacentCell(tile.cell, Vector2Int.up);
+            Cell down = grid.GetAdjacentCell(tile.cell, Vector2Int.down);
+            Cell left = grid.GetAdjacentCell(tile.cell, Vector2Int.left);
+            Cell right = grid.GetAdjacentCell(tile.cell, Vector2Int.right);
 
             if (up != null && CanMerge(tile, up.tile)) {
                 return false;
